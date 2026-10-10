@@ -1,9 +1,10 @@
-import java.time.LocalDate;
-
 public class Main {
     public static void main(String[] args) {
-        printLeapYearResult();
-        printAppInstallation();
+        printLeapYearResult(1904);
+
+        byte clientOs = 1;
+        int clientDeviceYear = 2014;
+        printAppInstallation(clientOs, clientDeviceYear);
 
         int deliveryDistance = 95;
         int deliveryDays = calculateDeliveryDays(deliveryDistance);
@@ -15,9 +16,7 @@ public class Main {
         }
     }
 
-    public static void printLeapYearResult() {
-        int year = 1904;
-
+    public static void printLeapYearResult(int year) {
         if (year <= 1584) {
             System.out.println("Год должен быть больше 1584.");
         } else if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
@@ -27,22 +26,15 @@ public class Main {
         }
     }
 
-    public static void printAppInstallation() {
-        int clientDeviceYear = LocalDate.now().getYear();
-        byte clientOs = 1;
-
-        if (clientOs == 0) {
-            if (clientDeviceYear <= 2015) {
-                System.out.println("Установите облегченную версию приложения для iOS по ссылке.");
-            } else {
-                System.out.println("Установите версию приложения для iOS по ссылке.");
-            }
+    public static void printAppInstallation(byte clientOs, int clientDeviceYear) {
+        if (clientOs == 0 && clientDeviceYear <= 2015) {
+            System.out.println("Установите облегченную версию приложения для iOS по ссылке.");
+        } else if (clientOs == 0) {
+            System.out.println("Установите версию приложения для iOS по ссылке.");
+        } else if (clientOs == 1 && clientDeviceYear <= 2015) {
+            System.out.println("Установите облегченную версию приложения для Android по ссылке.");
         } else if (clientOs == 1) {
-            if (clientDeviceYear <= 2015) {
-                System.out.println("Установите облегченную версию приложения для Android по ссылке.");
-            } else {
-                System.out.println("Установите версию приложения для Android по ссылке.");
-            }
+            System.out.println("Установите версию приложения для Android по ссылке.");
         } else {
             System.out.println("Неизвестная операционная система.");
         }
